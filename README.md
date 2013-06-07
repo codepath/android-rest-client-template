@@ -37,6 +37,31 @@ public class RestClient extends OAuthBaseClient {
 }
 ```
 
+Next, change the REST_CALLBACK_URL to a unique name that is special for this application. 
+This is used for the OAuth authentication flow: 
+
+```java
+// RestClient.java
+public static final String REST_CALLBACK_URL = "oauth://codepathtweets"; 
+```
+
+Also, be sure to **change this value** in the `AndroidManifest.xml` to match the same host:
+
+```java
+// AndroidManifest.xml
+// manifest => application => activity
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+
+    <data
+        android:host="codepathtweets"
+        android:scheme="oauth" />
+</intent-filter>
+```
+
 Next, you want to define the endpoints which you want to retrieve data from or send data to within your client:
 
 ```java

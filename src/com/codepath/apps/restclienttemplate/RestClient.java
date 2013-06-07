@@ -26,7 +26,7 @@ public class RestClient extends OAuthBaseClient {
     public static final String REST_URL = "http://api.flickr.com/services"; // Change this, base API URL
     public static final String REST_CONSUMER_KEY = "SOME_KEY";       // Change this
     public static final String REST_CONSUMER_SECRET = "SOME_SECRET"; // Change this
-    public static final String REST_CALLBACK_URL = "oauth://cprest"; // Don't change this
+    public static final String REST_CALLBACK_URL = "oauth://cprest"; // Change this (here and in manifest)
     
     public RestClient(Context context) {
         super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
