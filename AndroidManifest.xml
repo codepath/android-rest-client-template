@@ -43,10 +43,6 @@
                     android:scheme="oauth" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.codepath.apps.restclienttemplate.PhotosActivity"
-            android:label="@string/title_activity_photos" >
-        </activity>
     </application>
 
 </manifest>
