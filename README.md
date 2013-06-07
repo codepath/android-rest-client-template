@@ -1,0 +1,180 @@
+# RestClientTemplate
+
+## Overview
+
+RestClientTemplate is a skeleton Android project that makes writing Android apps sourced from OAuth JSON REST APIs as easy as possible. This skeleton project
+combines the best libraries and structure to enable quick development of rich API clients. The following things are supported out of the box:
+
+ * Authenticating with any OAuth 1.0a or OAuth 2 API
+ * Sending requests for and parsing JSON API data using a defined client
+ * Persisting data to a local SQLite store through an ORM layer
+ * Displaying and caching remote image data into views
+
+The following libraries are used to make this possible:
+
+ * [scribe-java](https://github.com/fernandezpablo85/scribe-java) - Simple OAuth library for handling the authentication flow.
+ * [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
+ * [codepath-oauth](https://github.com/organizations/thecodepath) - Custom-built library for managing OAuth authentication and signing of requests
+ * [UniversalImageLoader](https://github.com/nostra13/Android-Universal-Image-Loader) - Used for async image loading and caching them in memory and on disk.
+ * [ActiveAndroid](https://github.com/pardom/ActiveAndroid) - Simple ORM for persisting a local SQLite database on the Android device
+
+## Usage
+
+### 1. Configure the REST client
+
+Open `src/com.codepath.apps.restclienttemplate/RestClient.java`. Configure the `REST_API_CLASS`, `REST_URL`, `REST_CONSUMER_KEY`, `REST_CONSUMER_SECRET` based on the values needed to connect to your particular API. The `REST_URL` should be the base URL used for connecting to the API (i.e `https://api.twitter.com`). The `REST_API_CLASS` should be the class defining the [service](https://github.com/fernandezpablo85/scribe-java/tree/master/src/main/java/org/scribe/builder/api) you wish to connect to. Check out the [full list of services](https://github.com/fernandezpablo85/scribe-java/tree/master/src/main/java/org/scribe/builder/api) you can select (i.e `FlickrApi.class`).
+
+For example if I wanted to connect to Twitter:
+
+```java
+// RestClient.java
+public class RestClient extends OAuthBaseClient {
+    public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class;
+    public static final String REST_URL = "http://api.twitter.com";
+    public static final String REST_CONSUMER_KEY = "57fdgdfh345195e071f9a761d763ca0";
+    public static final String REST_CONSUMER_SECRET = "d657sdsg34435435";
+    // ...constructor and endpoints
+}
+```
+
+Next, you want to define the endpoints which you want to retrieve data from or send data to within your client:
+
+```java
+// RestClient.java
+public void getHomeTimeline(int page, AsyncHttpResponseHandler handler) {
+  String apiUrl = getApiUrl("statuses/home_timeline.json");
+  RequestParams params = new RequestParams();
+  params.put("page", String.valueOf(page));
+  client.get(apiUrl, params, handler);
+}
+```
+
+Note we are using `getApiUrl` to get the full URL from the relative fragment and `RequestParams` to control the request parameters.
+You can easily send post requests (or put or delete) using a similar approach:
+
+```java
+// RestClient.java
+public void postTweet(String body, AsyncHttpResponseHandler handler) {
+    String apiUrl = getApiUrl("statuses/update.json");
+    RequestParams params = new RequestParams();
+    params.put("status", body);
+    client.post(apiUrl, params, handler);
+}
+```
+
+These endpoint methods will automatically execute asynchronous requests signed with the authenticated access token. To use JSON endpoints, simply invoke the method
+with a `JsonHttpResponseHandler` handler:
+
+```java
+// SomeActivity.java
+RestClient client = RestClientApp.getRestClient();
+client.getHomeTimeline(1, new JsonHttpResponseHandler() {
+  public void onSuccess(JSONArray json) {
+    // Response is automatically parsed into a JSONArray
+    // json.getJSONObject(0).getLong("id");
+  }
+});
+```
+
+Based on the JSON response (array or object), you need to declare the expected type inside the OnSuccess signature i.e
+`public void onSuccess(JSONObject json)`. If the endpoint does not return JSON, then you can use the `AsyncHttpResponseHandler`:
+
+```java
+RestClient client = RestClientApp.getRestClient();
+client.get("http://www.google.com", new AsyncHttpResponseHandler() {
+    @Override
+    public void onSuccess(String response) {
+        System.out.println(response);
+    }
+});
+```
+Check out [Android Async HTTP Docs](http://loopj.com/android-async-http/) for more request creation details.
+
+### 2. Define the Models
+
+In the `src/com.codepath.apps.restclienttemplate.models`, create the models that represent the key data to be parsed and persisted within your application.
+For example, if you were connecting to Twitter, you would want a Tweet model as follows:
+
+```java
+// models/Tweet.java
+package com.codepath.apps.restclienttemplate.models;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+@Table(name = "Tweets")
+public class Tweet extends Model {
+  @Column(name = "userId")
+  String userId;
+  @Column(name = "userHandle")
+  String userHandle;
+  @Column(name = "timestamp")
+  String timestamp;
+  @Column(name = "body")
+  String body;
+
+  // Make sure to define this constructor with no arguments
+  public Tweet() {
+    super();
+  }
+
+  // And a constructor that creates an object from the JSON response
+  public Tweet(JSONObject object){
+    super();
+
+    try {
+      this.user_id = object.getString("user_id");
+      // ...
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+Notice here we specify the SQLite table for a resource, the columns for that table, and a constructor for
+turning the JSON object fetched from the API into this object. For more information on creating a model,
+check out the [ActiveAndroid Wiki](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model).
+
+### 3. Setup Your Authenticated Activities
+
+Open `src/com.codepath.apps.restclienttemplate/LoginActivity.java` and configure the `onLoginSuccess` method
+which fires once your app has access to the authenticated API. Launch an activity and begin using your REST client:
+
+```java
+// LoginActivity.java
+@Override
+public void onLoginSuccess() {
+  Intent i = new Intent(this, TimelineActivity.class);
+  startActivity(i);
+}
+```
+
+In your new authenticated activity, you can access your client anywhere with:
+
+```java
+RestClient client = RestClientApp.getRestClient();
+client.getHomeTimeline(1, new JsonHttpResponseHandler() {
+  public void onSuccess(JSONArray json) {
+    Log.d("DEBUG", "timeline: " + json.toString());
+  }
+});
+```
+
+You can also persist data to your models using:
+
+```java
+Tweet t = new Tweet();
+t.user_id = json.getInteger("user_id");
+t.user_handle = json.getString("user_username");
+t.timestamp = json.getString("timestamp");
+t.body = json.getString("body");
+// or new Tweet(json);
+t.save();
+```
+
+That's all you need to get started. From here, hook up your activities and their behavior, adjust your models and add more REST endpoints.
