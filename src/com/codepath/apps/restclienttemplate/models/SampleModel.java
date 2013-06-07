@@ -10,8 +10,15 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
-@Table(name = "photos")
-public class SampleModel extends Model { 
+/*
+ * This is a temporary, sample model that demonstrates the basic structure
+ * of a SQLite persisted Model object. Check out the ActiveAndroid wiki for more details:
+ * https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model
+ * 
+ */
+@Table(name = "items")
+public class SampleModel extends Model {
+	// Define table fields
 	@Column(name = "name")
 	private String name;
 	
@@ -19,6 +26,7 @@ public class SampleModel extends Model {
 		super();
 	}
 	
+	// Parse model from JSON
 	public SampleModel(JSONObject object){
 		super();
 
@@ -29,10 +37,12 @@ public class SampleModel extends Model {
 		}
 	}
 	
+	// Getters
 	public String getName() {
 		return name;
 	}
 	
+	// Record Finders
 	public static SampleModel byId(long id) {
 	   return new Select().from(SampleModel.class).where("id = ?", id).executeSingle();
 	}
