@@ -70,7 +70,7 @@ public void getHomeTimeline(int page, AsyncHttpResponseHandler handler) {
   String apiUrl = getApiUrl("statuses/home_timeline.json");
   RequestParams params = new RequestParams();
   params.put("page", String.valueOf(page));
-  client.get(apiUrl, params, handler);
+  getClient().get(apiUrl, params, handler);
 }
 ```
 
@@ -83,7 +83,7 @@ public void postTweet(String body, AsyncHttpResponseHandler handler) {
     String apiUrl = getApiUrl("statuses/update.json");
     RequestParams params = new RequestParams();
     params.put("status", body);
-    client.post(apiUrl, params, handler);
+    getClient().post(apiUrl, params, handler);
 }
 ```
 
@@ -106,7 +106,7 @@ Based on the JSON response (array or object), you need to declare the expected t
 
 ```java
 RestClient client = RestClientApp.getRestClient();
-client.get("http://www.google.com", new AsyncHttpResponseHandler() {
+client.getSomething(new AsyncHttpResponseHandler() {
     @Override
     public void onSuccess(String response) {
         System.out.println(response);
