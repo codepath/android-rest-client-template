@@ -152,8 +152,10 @@ public class Tweet extends Model {
     super();
 
     try {
-      this.user_id = object.getString("user_id");
-      // ...
+      this.userId = object.getString("user_id");
+      t.userHandle = json.getString("user_username");
+      t.timestamp = json.getString("timestamp");
+      t.body = json.getString("body");
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -190,15 +192,11 @@ client.getHomeTimeline(1, new JsonHttpResponseHandler() {
 });
 ```
 
-You can also persist data to your models using:
+You can then load the data into your models using:
 
 ```java
-Tweet t = new Tweet();
-t.user_id = json.getInteger("user_id");
-t.user_handle = json.getString("user_username");
-t.timestamp = json.getString("timestamp");
-t.body = json.getString("body");
-// or new Tweet(json);
+Tweet t = new Tweet(json);
+// t.body = "foo"
 t.save();
 ```
 
