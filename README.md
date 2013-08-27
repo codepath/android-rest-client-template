@@ -160,6 +160,26 @@ public class Tweet extends Model {
       e.printStackTrace();
     }
   }
+  
+  public static ArrayList<Tweet> fromJson(JSONArray jsonArray) {
+    ArrayList<Tweet> tweets = new ArrayList<Tweet>(jsonArray.length());
+    
+    for (int i=0; i < jsonArray.length(); i++) {
+        JSONObject tweetJson = null;
+        try {
+            tweetJson = jsonArray.getJSONObject(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+            continue;
+        }
+
+        Tweet tweet = new Tweet(tweetJson);
+        tweet.save
+        tweets.add(tweet);
+    }
+
+    return tweets;
+  }
 }
 ```
 
@@ -186,13 +206,20 @@ In your new authenticated activity, you can access your client anywhere with:
 ```java
 RestClient client = RestClientApp.getRestClient();
 client.getHomeTimeline(1, new JsonHttpResponseHandler() {
-  public void onSuccess(JSONArray json) {
-    Log.d("DEBUG", "timeline: " + json.toString());
+  public void onSuccess(JSONArray jsonArray) {
+    Log.d("DEBUG", "timeline: " + jsonArray.toString());
+    // Load json array into model classes
   }
 });
 ```
 
-You can then load the data into your models using:
+You can then load the data into your models from a `JSONArray` using:
+
+```java
+ArrayList<Tweet> tweets = Tweet.fromJSON(jsonArray);
+```
+
+or load the data from a single `JSONObject` with:
 
 ```java
 Tweet t = new Tweet(json);
