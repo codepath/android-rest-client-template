@@ -133,6 +133,7 @@ import com.activeandroid.annotation.Table;
 
 @Table(name = "Tweets")
 public class Tweet extends Model {
+  // Define database columns and associated fields
   @Column(name = "userId")
   String userId;
   @Column(name = "userHandle")
@@ -142,12 +143,27 @@ public class Tweet extends Model {
   @Column(name = "body")
   String body;
 
-  // Make sure to define this constructor with no arguments
+  // Make sure to always define this constructor with no arguments
   public Tweet() {
     super();
   }
+}
+```
 
-  // And a constructor that creates an object from the JSON response
+Notice here we specify the SQLite table for a resource, the columns for that table, and a constructor for
+turning the JSON object fetched from the API into this object. For more information on creating a model,
+check out the [ActiveAndroid Wiki](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model).
+
+In addition, we can also add functions into the model to support parsing JSON attributes in order to instantiate the 
+model based on API data. This might look like:
+
+```java
+// models/Tweet.java
+@Table(name = "Tweets")
+public class Tweet extends Model {
+  // ...existing code from above...
+  
+  // Add a constructor that creates an object from the JSON response
   public Tweet(JSONObject object){
     super();
 
@@ -183,9 +199,8 @@ public class Tweet extends Model {
 }
 ```
 
-Notice here we specify the SQLite table for a resource, the columns for that table, and a constructor for
-turning the JSON object fetched from the API into this object. For more information on creating a model,
-check out the [ActiveAndroid Wiki](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model).
+Now you have a model that supports proper creation based on JSON. Create models for all the resources
+necessary for your mobile client.
 
 ### 3. Setup Your Authenticated Activities
 
