@@ -37,12 +37,12 @@ public class RestClient extends OAuthBaseClient {
 }
 ```
 
-Next, change the REST_CALLBACK_URL to a unique name that is special for this application. 
-This is used for the OAuth authentication flow: 
+Next, change the REST_CALLBACK_URL to a unique name that is special for this application.
+This is used for the OAuth authentication flow:
 
 ```java
 // RestClient.java
-public static final String REST_CALLBACK_URL = "oauth://codepathtweets"; 
+public static final String REST_CALLBACK_URL = "oauth://codepathtweets";
 ```
 
 Also, be sure to **change this value** in the `AndroidManifest.xml` to match the same host:
@@ -154,7 +154,7 @@ Notice here we specify the SQLite table for a resource, the columns for that tab
 turning the JSON object fetched from the API into this object. For more information on creating a model,
 check out the [ActiveAndroid Wiki](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model).
 
-In addition, we can also add functions into the model to support parsing JSON attributes in order to instantiate the 
+In addition, we can also add functions into the model to support parsing JSON attributes in order to instantiate the
 model based on API data. This might look like:
 
 ```java
@@ -162,24 +162,24 @@ model based on API data. This might look like:
 @Table(name = "Tweets")
 public class Tweet extends Model {
   // ...existing code from above...
-  
+
   // Add a constructor that creates an object from the JSON response
   public Tweet(JSONObject object){
     super();
 
     try {
       this.userId = object.getString("user_id");
-      t.userHandle = json.getString("user_username");
-      t.timestamp = json.getString("timestamp");
-      t.body = json.getString("body");
+      this.userHandle = object.getString("user_username");
+      this.timestamp = object.getString("timestamp");
+      this.body = object.getString("body");
     } catch (JSONException e) {
       e.printStackTrace();
     }
   }
-  
+
   public static ArrayList<Tweet> fromJson(JSONArray jsonArray) {
     ArrayList<Tweet> tweets = new ArrayList<Tweet>(jsonArray.length());
-    
+
     for (int i=0; i < jsonArray.length(); i++) {
         JSONObject tweetJson = null;
         try {
