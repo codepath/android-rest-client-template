@@ -169,9 +169,9 @@ public class Tweet extends Model {
 
     try {
       this.userId = object.getString("user_id");
-      t.userHandle = json.getString("user_username");
-      t.timestamp = json.getString("timestamp");
-      t.body = json.getString("body");
+      t.userHandle = object.getString("user_username");
+      t.timestamp = object.getString("timestamp");
+      t.body = object.getString("body");
     } catch (JSONException e) {
       e.printStackTrace();
     }
