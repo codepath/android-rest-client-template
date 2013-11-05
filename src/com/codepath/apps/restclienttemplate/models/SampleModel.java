@@ -1,6 +1,6 @@
 package com.codepath.apps.restclienttemplate.models;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +47,7 @@ public class SampleModel extends Model {
 	   return new Select().from(SampleModel.class).where("id = ?", id).executeSingle();
 	}
 	
-	public static ArrayList<SampleModel> recentItems() {
+	public static List<SampleModel> recentItems() {
       return new Select().from(SampleModel.class).orderBy("id DESC").limit("300").execute();
 	}
 }
