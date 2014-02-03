@@ -190,6 +190,7 @@ public class Tweet extends Model {
         }
 
         Tweet tweet = new Tweet(tweetJson);
+        tweet.save();
         tweets.add(tweet);
     }
 
