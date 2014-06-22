@@ -21,11 +21,11 @@ public class SampleModel extends Model {
 	// Define table fields
 	@Column(name = "name")
 	private String name;
-	
+
 	public SampleModel() {
 		super();
 	}
-	
+
 	// Parse model from JSON
 	public SampleModel(JSONObject object){
 		super();
@@ -36,18 +36,18 @@ public class SampleModel extends Model {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// Getters
 	public String getName() {
 		return name;
 	}
-	
+
 	// Record Finders
 	public static SampleModel byId(long id) {
-	   return new Select().from(SampleModel.class).where("id = ?", id).executeSingle();
+		return new Select().from(SampleModel.class).where("id = ?", id).executeSingle();
 	}
-	
+
 	public static List<SampleModel> recentItems() {
-      return new Select().from(SampleModel.class).orderBy("id DESC").limit("300").execute();
+		return new Select().from(SampleModel.class).orderBy("id DESC").limit("300").execute();
 	}
 }
