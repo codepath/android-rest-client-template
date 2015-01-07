@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.codepath.apps.restclienttemplate"
+        minSdkVersion 10
+        targetSdkVersion 18
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.0'
+    compile files('libs/ActiveAndroid-3.1-08c6335cd.jar')
+    compile files('libs/android-async-http-1.4.3.jar')
+    compile files('libs/codepath-oauth-0.3.0.jar')
+    compile files('libs/codepath-utils.jar')
+    compile files('libs/scribe-codepath.jar')
+    compile files('libs/universal-image-loader-1.8.4.jar')
+}
