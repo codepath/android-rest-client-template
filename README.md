@@ -15,7 +15,7 @@ The following libraries are used to make this possible:
  * [scribe-java](https://github.com/fernandezpablo85/scribe-java) - Simple OAuth library for handling the authentication flow.
  * [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
  * [codepath-oauth](https://github.com/thecodepath/android-oauth-handler) - Custom-built library for managing OAuth authentication and signing of requests
- * [UniversalImageLoader](https://github.com/nostra13/Android-Universal-Image-Loader) - Used for async image loading and caching them in memory and on disk.
+ * [Picasso](https://github.com/square/picasso) - Used for async image loading and caching them in memory and on disk.
  * [ActiveAndroid](https://github.com/pardom/ActiveAndroid) - Simple ORM for persisting a local SQLite database on the Android device
 
 ## Usage
@@ -155,8 +155,7 @@ Notice here we specify the SQLite table for a resource, the columns for that tab
 turning the JSON object fetched from the API into this object. For more information on creating a model,
 check out the [ActiveAndroid Wiki](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model).
 
-In addition, we can also add functions into the model to support parsing JSON attributes in order to instantiate the
-model based on API data. This might look like:
+In addition, we can also add functions into the model to support parsing JSON attributes in order to instantiate the model based on API data. This might look like:
 
 ```java
 // models/Tweet.java
@@ -244,3 +243,14 @@ t.save();
 ```
 
 That's all you need to get started. From here, hook up your activities and their behavior, adjust your models and add more REST endpoints.
+
+### Extras
+
+If you want to load a remote image url into a particular ImageView, you can use Picasso to do that with:
+
+```java
+Picasso.with(getContext()).load(imageUrl).
+  noFade().fit().into(imageView);
+```
+
+This will load an image into the specified ImageView and resize the image to fit.
