@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.codepath.apps.restclienttemplate"
-        minSdkVersion 10
-        targetSdkVersion 18
+        minSdkVersion 14
+        targetSdkVersion 21
     }
 
     buildTypes {
