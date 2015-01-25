@@ -26,4 +26,6 @@ dependencies {
     compile files('libs/codepath-utils.jar')
     compile files('libs/scribe-codepath.jar')
     compile files('libs/universal-image-loader-1.8.4.jar')
+    compile files('libs/android-async-http-1.4.6.jar')
+    compile files('libs/picasso-2.4.0.jar')
 }
