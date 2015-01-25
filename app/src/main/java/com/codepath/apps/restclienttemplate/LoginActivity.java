@@ -4,15 +4,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import com.codepath.oauth.OAuthLoginActionBarActivity;
 import com.codepath.oauth.OAuthLoginActivity;
 
-public class LoginActivity extends OAuthLoginActivity<RestClient> {
+public class LoginActivity extends OAuthLoginActionBarActivity<RestClient> {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 	}
+
 
 	// Inflate the menu; this adds items to the action bar if it is present.
 	@Override
