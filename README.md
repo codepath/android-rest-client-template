@@ -94,7 +94,8 @@ with a `JsonHttpResponseHandler` handler:
 // SomeActivity.java
 RestClient client = RestClientApp.getRestClient();
 client.getHomeTimeline(1, new JsonHttpResponseHandler() {
-  public void onSuccess(JSONArray json) {
+    @Override
+    public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
     // Response is automatically parsed into a JSONArray
     // json.getJSONObject(0).getLong("id");
   }
@@ -108,7 +109,7 @@ Based on the JSON response (array or object), you need to declare the expected t
 RestClient client = RestClientApp.getRestClient();
 client.getSomething(new AsyncHttpResponseHandler() {
     @Override
-    public void onSuccess(String response) {
+    public void onSuccess(int statusCode, Header[] headers, String response) {
         System.out.println(response);
     }
 });
@@ -221,7 +222,7 @@ In your new authenticated activity, you can access your client anywhere with:
 ```java
 RestClient client = RestClientApp.getRestClient();
 client.getHomeTimeline(1, new JsonHttpResponseHandler() {
-  public void onSuccess(JSONArray jsonArray) {
+  public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
     Log.d("DEBUG", "timeline: " + jsonArray.toString());
     // Load json array into model classes
   }
