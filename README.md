@@ -249,7 +249,7 @@ That's all you need to get started. From here, hook up your activities and their
 If you want to load a remote image url into a particular ImageView, you can use Picasso to do that with:
 
 ```java
-Picasso.with(getContext()).load(imageUrl).
+Picasso.with(this).load(imageUrl).
   noFade().fit().into(imageView);
 ```
 
