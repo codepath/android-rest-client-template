@@ -92,7 +92,7 @@ with a `JsonHttpResponseHandler` handler:
 
 ```java
 // SomeActivity.java
-RestClient client = RestClientApp.getRestClient();
+RestClient client = RestApplication.getRestClient();
 client.getHomeTimeline(1, new JsonHttpResponseHandler() {
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
@@ -106,7 +106,7 @@ Based on the JSON response (array or object), you need to declare the expected t
 `public void onSuccess(JSONObject json)`. If the endpoint does not return JSON, then you can use the `AsyncHttpResponseHandler`:
 
 ```java
-RestClient client = RestClientApp.getRestClient();
+RestClient client = RestApplication.getRestClient();
 client.getSomething(new AsyncHttpResponseHandler() {
     @Override
     public void onSuccess(int statusCode, Header[] headers, String response) {
@@ -219,7 +219,7 @@ public void onLoginSuccess() {
 In your new authenticated activity, you can access your client anywhere with:
 
 ```java
-RestClient client = RestClientApp.getRestClient();
+RestClient client = RestApplication.getRestClient();
 client.getHomeTimeline(1, new JsonHttpResponseHandler() {
   public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
     Log.d("DEBUG", "timeline: " + jsonArray.toString());
