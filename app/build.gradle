@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.codepath.apps.restclienttemplate"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 21
     }
 
@@ -22,4 +22,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile 'com.android.support:appcompat-v7:21.0.0+'
     compile 'com.squareup.picasso:picasso:2.4.0'
+    compile 'com.loopj.android:android-async-http:1.4.6'
 }
