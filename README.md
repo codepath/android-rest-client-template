@@ -246,7 +246,7 @@ That's all you need to get started. From here, hook up your activities and their
 
 ### Extras
 
-#### Loading Images with Picass
+#### Loading Images with Picasso
 
 If you want to load a remote image url into a particular ImageView, you can use Picasso to do that with:
 
