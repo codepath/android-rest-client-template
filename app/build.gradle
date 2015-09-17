@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.codepath.apps.restclienttemplate"
@@ -29,7 +30,7 @@ dependencies {
     // Picasso for remote image loading
     compile 'com.squareup.picasso:picasso:2.5.2'
     // Android Async Http for sending async network requests
-    compile 'com.loopj.android:android-async-http:1.4.9-SNAPSHOT'
+    compile 'com.loopj.android:android-async-http:1.4.8'
     // ActiveAndroid for simple persistence with an ORM
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }
