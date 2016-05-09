@@ -30,7 +30,7 @@ For example if I wanted to connect to Twitter:
 // RestClient.java
 public class RestClient extends OAuthBaseClient {
     public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class;
-    public static final String REST_URL = "http://api.twitter.com";
+    public static final String REST_URL = "http://api.twitter.com/1.1";
     public static final String REST_CONSUMER_KEY = "57fdgdfh345195e071f9a761d763ca0";
     public static final String REST_CONSUMER_SECRET = "d657sdsg34435435";
     // ...constructor and endpoints
