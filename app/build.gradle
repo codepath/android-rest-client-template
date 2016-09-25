@@ -23,6 +23,10 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
+apply plugin: 'com.neenbedankt.android-apt'
+
+def dbflow_version = "3.1.1"
+
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile('com.codepath.libraries:android-oauth-handler:1.0.0@aar') {
@@ -33,6 +37,10 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     // Android Async Http for sending async network requests
     compile 'com.loopj.android:android-async-http:1.4.9'
-    // ActiveAndroid for simple persistence with an ORM
-    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    // DBFlow for simple persistence with an ORM
+    apt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
 }
+
+

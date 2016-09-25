@@ -1,5 +1,10 @@
 package com.codepath.apps.restclienttemplate;
 
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowLog;
+import com.raizlabs.android.dbflow.config.FlowManager;
+
+import android.app.Application;
 import android.content.Context;
 
 /*
@@ -11,12 +16,16 @@ import android.content.Context;
  *     // use client to send requests to API
  *
  */
-public class RestApplication extends com.activeandroid.app.Application {
+public class RestApplication extends Application {
 	private static Context context;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		FlowManager.init(new FlowConfig.Builder(this).build());
+		FlowLog.setMinimumLoggingLevel(FlowLog.Level.V);
+
 		RestApplication.context = this;
 	}
 

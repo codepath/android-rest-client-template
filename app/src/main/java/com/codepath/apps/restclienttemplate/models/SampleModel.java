@@ -1,23 +1,30 @@
 package com.codepath.apps.restclienttemplate.models;
 
-import java.util.List;
+import com.codepath.apps.restclienttemplate.MyDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
+import java.util.List;
 
 /*
  * This is a temporary, sample model that demonstrates the basic structure
- * of a SQLite persisted Model object. Check out the ActiveAndroid wiki for more details:
+ * of a SQLite persisted Model object. Check out the DBFlow wiki for more details:
  * https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model
  * 
  */
-@Table(name = "items")
-public class SampleModel extends Model {
+@Table(database = MyDatabase.class)
+public class SampleModel extends BaseModel {
+
+	@PrimaryKey
+	@Column
+	Long id;
+
 	// Define table fields
 	@Column(name = "name")
 	private String name;
@@ -42,12 +49,17 @@ public class SampleModel extends Model {
 		return name;
 	}
 
+	// Setters
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	// Record Finders
 	public static SampleModel byId(long id) {
-		return new Select().from(SampleModel.class).where("id = ?", id).executeSingle();
+		return new Select().from(SampleModel.class).where(SampleModel_Table.id.eq(id)).querySingle();
 	}
 
 	public static List<SampleModel> recentItems() {
-		return new Select().from(SampleModel.class).orderBy("id DESC").limit("300").execute();
+		return new Select().from(SampleModel.class).orderBy(SampleModel_Table.id, false).limit(300).queryList();
 	}
 }
