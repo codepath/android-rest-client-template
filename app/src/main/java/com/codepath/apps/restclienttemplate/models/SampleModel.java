@@ -26,7 +26,7 @@ public class SampleModel extends BaseModel {
 	Long id;
 
 	// Define table fields
-	@Column(name = "name")
+	@Column
 	private String name;
 
 	public SampleModel() {
