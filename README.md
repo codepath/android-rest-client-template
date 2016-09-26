@@ -138,13 +138,14 @@ import com.raizlabs.android.dbflow.annotation.Table;
 @Table(database = MyDatabase.class)
 public class Tweet extends BaseModel {
   // Define database columns and associated fields
-  @Column(name = "userId")
+  @PrimaryKey @Column Long id;
+  @Column
   String userId;
-  @Column(name = "userHandle")
+  @Column
   String userHandle;
-  @Column(name = "timestamp")
+  @Column
   String timestamp;
-  @Column(name = "body")
+  @Column
   String body;
 }
 ```
