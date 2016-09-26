@@ -1,0 +1,16 @@
+language: android
+jdk:
+  - oraclejdk8
+sudo: false
+android:
+  components:
+  - platform-tools
+  - build-tools-24.0.0
+  - tools
+  - android-24
+  - extra-android-m2repository
+  - extra-google-m2repository
+  licenses:
+  - android-sdk-license-.+
+script:
+- "./gradlew build check --daemon"
