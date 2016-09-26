@@ -10,6 +10,12 @@ android {
         targetSdkVersion 24
     }
 
+    // Related to https://github.com/scribejava/scribejava/issues/480
+    // Scribe expects Java 7 or this custom Apache library
+    lintOptions {
+        lintConfig rootProject.file('gradle/lint.xml')
+    }
+
     buildTypes {
         release {
             minifyEnabled false
