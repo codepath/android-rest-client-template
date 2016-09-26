@@ -4,8 +4,9 @@ jdk:
 sudo: false
 android:
   components:
-  - platform-tools
   - tools
+  - tools  # see https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943
+  - platform-tools
   - build-tools-24.0.0
   - android-24
   - extra-android-m2repository
