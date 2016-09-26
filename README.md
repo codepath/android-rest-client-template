@@ -16,7 +16,7 @@ The following libraries are used to make this possible:
  * [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
  * [codepath-oauth](https://github.com/thecodepath/android-oauth-handler) - Custom-built library for managing OAuth authentication and signing of requests
  * [Picasso](https://github.com/square/picasso) - Used for async image loading and caching them in memory and on disk.
- * [ActiveAndroid](https://github.com/pardom/ActiveAndroid) - Simple ORM for persisting a local SQLite database on the Android device
+ * [DBFlow](https://github.com/Raizlabs/DBFlow) - Simple ORM for persisting a local SQLite database on the Android device
 
 ## Usage
 
@@ -128,12 +128,15 @@ package com.codepath.apps.restclienttemplate.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
 
-@Table(name = "Tweets")
-public class Tweet extends Model {
+
+@Table(database = MyDatabase.class)
+public class Tweet extends BaseModel {
   // Define database columns and associated fields
   @Column(name = "userId")
   String userId;
@@ -143,24 +146,19 @@ public class Tweet extends Model {
   String timestamp;
   @Column(name = "body")
   String body;
-
-  // Make sure to always define this constructor with no arguments
-  public Tweet() {
-    super();
-  }
 }
 ```
 
 Notice here we specify the SQLite table for a resource, the columns for that table, and a constructor for
 turning the JSON object fetched from the API into this object. For more information on creating a model,
-check out the [ActiveAndroid Wiki](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model).
+check out the [DBFlow Wiki](https://github.com/Raizlabs/DBFlow/blob/master/usage2/Intro.md).
 
 In addition, we can also add functions into the model to support parsing JSON attributes in order to instantiate the model based on API data. This might look like:
 
 ```java
 // models/Tweet.java
-@Table(name = "Tweets")
-public class Tweet extends Model {
+@Table(database = MyDatabase.class)
+public class Tweet extends BaseModel {
   // ...existing code from above...
 
   // Add a constructor that creates an object from the JSON response
