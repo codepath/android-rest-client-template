@@ -1,4 +1,5 @@
-# RestClientTemplate
+# RestClientTemplate <img src="https://travis-ci.org/codepath/android-rest-client-template.svg?branch=master"/>
+
 
 ## Overview
 
