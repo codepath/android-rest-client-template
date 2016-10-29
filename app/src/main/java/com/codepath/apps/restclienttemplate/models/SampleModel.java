@@ -15,7 +15,7 @@ import java.util.List;
 /*
  * This is a temporary, sample model that demonstrates the basic structure
  * of a SQLite persisted Model object. Check out the DBFlow wiki for more details:
- * https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model
+ * https://github.com/codepath/android_guides/wiki/DBFlow-Guide
  * 
  */
 @Table(database = MyDatabase.class)
