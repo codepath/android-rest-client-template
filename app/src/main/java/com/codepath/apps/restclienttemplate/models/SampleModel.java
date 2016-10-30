@@ -56,6 +56,10 @@ public class SampleModel extends BaseModel {
 		this.name = name;
 	}
 
+	/* The where class in this code below will be marked red until you first compile the project, since the code 
+	 * for the SampleModel_Table class is generated at compile-time.
+	 */
+	
 	// Record Finders
 	public static SampleModel byId(long id) {
 		return new Select().from(SampleModel.class).where(SampleModel_Table.id.eq(id)).querySingle();
