@@ -31,7 +31,7 @@ repositories {
 
 apply plugin: 'com.neenbedankt.android-apt'
 
-def dbflow_version = "3.1.1"
+def dbflow_version = "4.0.0-beta5"
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
