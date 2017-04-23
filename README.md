@@ -29,7 +29,7 @@ For example if I wanted to connect to Twitter:
 ```java
 // RestClient.java
 public class RestClient extends OAuthBaseClient {
-    public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class;
+    public static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
     public static final String REST_URL = "https://api.twitter.com/1.1";
     public static final String REST_CONSUMER_KEY = "57fdgdfh345195e071f9a761d763ca0";
     public static final String REST_CONSUMER_SECRET = "d657sdsg34435435";
@@ -138,7 +138,7 @@ import com.raizlabs.android.dbflow.annotation.Table;
 @Table(database = MyDatabase.class)
 public class Tweet extends BaseModel {
   // Define database columns and associated fields
-  @PrimaryKey @Column 
+  @PrimaryKey @Column
   Long id;
   @Column
   String userId;
@@ -270,4 +270,4 @@ client.clearAccessToken();
 
 * If you receive the following error `org.scribe.exceptions.OAuthException: Cannot send unauthenticated requests for TwitterApi client. Please attach an access token!` then check the following:
  * Is your intent-filter with `<data>` attached to the `LoginActivity`? If not, make sure that the `LoginActivity` receives the request after OAuth authorization.
- * Is the `onLoginSuccess` method being executed in the `LoginActivity`. On launch of your app, be sure to start the app on the LoginActivity so authentication routines execute on launch and take you to the authenticated activity. 
+ * Is the `onLoginSuccess` method being executed in the `LoginActivity`. On launch of your app, be sure to start the app on the LoginActivity so authentication routines execute on launch and take you to the authenticated activity.
