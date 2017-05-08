@@ -15,7 +15,7 @@ The following libraries are used to make this possible:
  * [scribe-java](https://github.com/fernandezpablo85/scribe-java) - Simple OAuth library for handling the authentication flow.
  * [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
  * [codepath-oauth](https://github.com/thecodepath/android-oauth-handler) - Custom-built library for managing OAuth authentication and signing of requests
- * [Picasso](https://github.com/square/picasso) - Used for async image loading and caching them in memory and on disk.
+ * [Glide](https://github.com/bumptech/glide) - Used for async image loading and caching them in memory and on disk.
  * [DBFlow](https://github.com/Raizlabs/DBFlow) - Simple ORM for persisting a local SQLite database on the Android device
 
 ## Usage
@@ -248,11 +248,11 @@ That's all you need to get started. From here, hook up your activities and their
 
 #### Loading Images with Picasso
 
-If you want to load a remote image url into a particular ImageView, you can use Picasso to do that with:
+If you want to load a remote image url into a particular ImageView, you can use Glide to do that with:
 
 ```java
-Picasso.with(this).load(imageUrl).
-  noFade().fit().into(imageView);
+Glide.with(this).load(imageUrl)
+     .into(imageView);
 ```
 
 This will load an image into the specified ImageView and resize the image to fit.
