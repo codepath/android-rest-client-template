@@ -25,12 +25,21 @@ public class RestClient extends OAuthBaseClient {
 	public static final String REST_URL = "https://api.flickr.com/services"; // Change this, base API URL
 	public static final String REST_CONSUMER_KEY = "SOME_KEY";       // Change this
 	public static final String REST_CONSUMER_SECRET = "SOME_SECRET"; // Change this
-	public static final String REST_CALLBACK_URL = "oauth://cprest"; // Change this (here and in manifest)
+
+	// Scheme and host should match AndroidManifest.xml
+	public static final String CUSTOM_SCHEME = "oauth";
+	public static final String CUSTOM_HOST = "cprest";
+
+	// Landing page to indicate the OAuth flow worked in case Chrome for Android 25+ blocks navigation back to the app.
+	public static final String FALLBACK_URL = "https://codepath.github.io/android-rest-client-template/success.html";
+
+	// See https://developer.chrome.com/multidevice/android/intents
+	public static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
 
 	public RestClient(Context context) {
-		super(context, REST_API_INSTANCE, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
+		super(context, REST_API_INSTANCE, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET,
+				String.format(REST_CALLBACK_URL_TEMPLATE, CUSTOM_HOST, CUSTOM_SCHEME, context.getPackageName(), FALLBACK_URL));
 	}
-
 	// CHANGE THIS
 	// DEFINE METHODS for different API endpoints here
 	public void getInterestingnessList(AsyncHttpResponseHandler handler) {
