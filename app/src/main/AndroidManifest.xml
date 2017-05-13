@@ -30,8 +30,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="cprest"
-                    android:scheme="oauth" />
+                    android:host="@string/intent_host"
+                    android:scheme="@string/intent_scheme" />
             </intent-filter>
         </activity>
     </application>
