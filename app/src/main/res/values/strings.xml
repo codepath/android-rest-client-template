@@ -3,5 +3,7 @@
 
     <string name="app_name">Rest Client Template</string>
     <string name="login_label">Log in</string>
+    <string name="intent_scheme">oauth</string>
+    <string name="intent_host">cprest</string>
 
 </resources>

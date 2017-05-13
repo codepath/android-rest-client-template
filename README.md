@@ -37,29 +37,12 @@ public class RestClient extends OAuthBaseClient {
 }
 ```
 
-Next, change the REST_CALLBACK_URL to a unique name that is special for this application.
-This is used for the OAuth authentication flow:
+Next, change the `intent_scheme` and `intent_host` in `strings.xml` to a unique name that is special for this application.
+This is used for the OAuth authentication flow for launching the app through web pages through an [Android intent](https://developer.chrome.com/multidevice/android/intents).
 
-```java
-// RestClient.java
-public static final String REST_CALLBACK_URL = "oauth://codepathtweets";
-```
-
-Also, be sure to **change this value** in the `AndroidManifest.xml` to match the same host:
-
-```java
-// AndroidManifest.xml
-// manifest => application => activity
-<intent-filter>
-    <action android:name="android.intent.action.VIEW" />
-
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-
-    <data
-        android:host="codepathtweets"
-        android:scheme="oauth" />
-</intent-filter>
+```xml
+<string name="intent_scheme">oauth</string>
+<string name="intent_host">codepathtweets</string>
 ```
 
 Next, you want to define the endpoints which you want to retrieve data from or send data to within your client:
@@ -271,3 +254,5 @@ client.clearAccessToken();
 * If you receive the following error `org.scribe.exceptions.OAuthException: Cannot send unauthenticated requests for TwitterApi client. Please attach an access token!` then check the following:
  * Is your intent-filter with `<data>` attached to the `LoginActivity`? If not, make sure that the `LoginActivity` receives the request after OAuth authorization.
  * Is the `onLoginSuccess` method being executed in the `LoginActivity`. On launch of your app, be sure to start the app on the LoginActivity so authentication routines execute on launch and take you to the authenticated activity.
+ * If you are plan to test with Android API 24 or above, you will need to use Chrome to launch the OAuth flow.  
+ * Note that the emulators (both the Google-provided x86 and Genymotion versions) for API 24+ versions can introduce intermittent issues when initiating the OAuth flow for the first time.  For best results, use an device for this project.
