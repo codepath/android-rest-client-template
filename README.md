@@ -229,7 +229,7 @@ That's all you need to get started. From here, hook up your activities and their
 
 ### Extras
 
-#### Loading Images with Picasso
+#### Loading Images with Glide
 
 If you want to load a remote image url into a particular ImageView, you can use Glide to do that with:
 
