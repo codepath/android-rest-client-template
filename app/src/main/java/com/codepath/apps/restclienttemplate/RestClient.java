@@ -21,7 +21,7 @@ import com.loopj.android.http.RequestParams;
  * 
  */
 public class RestClient extends OAuthBaseClient {
-	public static final BaseApi REST_API_INSTANCE = FlickrApi.instance(); // Change this
+	public static final BaseApi REST_API_INSTANCE = FlickrApi.instance(FlickrApi.FlickrPerm.WRITE); // Change this
 	public static final String REST_URL = "https://api.flickr.com/services"; // Change this, base API URL
 	public static final String REST_CONSUMER_KEY = "SOME_KEY";       // Change this
 	public static final String REST_CONSUMER_SECRET = "SOME_SECRET"; // Change this
