@@ -10,6 +10,8 @@ android:
   - android-27
   licenses:
   - android-sdk-license-.+
+before_install:
+  - yes | sdkmanager "platforms;android-27"
 script:
 - "./gradlew build check --daemon"
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
