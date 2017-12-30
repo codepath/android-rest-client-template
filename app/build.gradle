@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
 
     defaultConfig {
         applicationId "com.codepath.apps.restclienttemplate"
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 27
     }
 
     // Related to https://github.com/scribejava/scribejava/issues/480
@@ -32,15 +32,15 @@ repositories {
 def dbflow_version = "4.0.3"
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile 'com.codepath.libraries:android-oauth-handler:1.2.5'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    implementation fileTree(dir: 'libs', include: '*.jar')
+    implementation 'com.codepath.libraries:android-oauth-handler:1.2.5'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
     // Glide for remote image loading
-    compile 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
     // Android Async Http for sending async network requests
-    compile 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.loopj.android:android-async-http:1.4.9'
     // DBFlow for simple persistence with an ORM
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
-    compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
 }
