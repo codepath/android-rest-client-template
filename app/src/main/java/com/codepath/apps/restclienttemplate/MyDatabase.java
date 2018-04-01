@@ -1,11 +1,12 @@
 package com.codepath.apps.restclienttemplate;
 
-import com.raizlabs.android.dbflow.annotation.Database;
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.RoomDatabase;
 
-@Database(name = MyDatabase.NAME, version = MyDatabase.VERSION)
-public class MyDatabase {
+import com.codepath.apps.restclienttemplate.models.SampleModel;
+import com.codepath.apps.restclienttemplate.models.SampleModelDao;
 
-    public static final String NAME = "RestClientDatabase";
-
-    public static final int VERSION = 1;
+@Database(entities= {SampleModel.class}, version=1)
+public abstract class MyDatabase extends RoomDatabase {
+    public abstract SampleModelDao sampleModelDao();
 }
