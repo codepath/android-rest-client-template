@@ -16,7 +16,7 @@ The following libraries are used to make this possible:
  * [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
  * [codepath-oauth](https://github.com/thecodepath/android-oauth-handler) - Custom-built library for managing OAuth authentication and signing of requests
  * [Glide](https://github.com/bumptech/glide) - Used for async image loading and caching them in memory and on disk.
- * [DBFlow](https://github.com/Raizlabs/DBFlow) - Simple ORM for persisting a local SQLite database on the Android device
+ * [Room](https://developer.android.com/training/data-storage/room/index.html) - Simple ORM for persisting a local SQLite database on the Android device
 
 ## Usage
 
