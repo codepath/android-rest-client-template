@@ -137,7 +137,7 @@ public class Tweet {
 }
 ```
 
-Note there is a separate `User` object but it will not actually be declared as a separate table.  By using the `@Embedded` annotation, the fields in this class will be stored as part of the Tweet table.  Room specifically disallows references between two different entities for performance reasons (see https://developer.android.com/training/data-storage/room/referencing-data), so declaring it this way causes the data to be denormalized as one table.
+Note there is a separate `User` object but it will not actually be declared as a separate table.  By using the `@Embedded` annotation, the fields in this class will be stored as part of the Tweet table.  Room specifically does not load references between two different entities for performance reasons (see https://developer.android.com/training/data-storage/room/referencing-data), so declaring it this way causes the data to be denormalized as one table.
 
 ```java
 // models/User.java
