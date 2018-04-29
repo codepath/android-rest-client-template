@@ -374,6 +374,10 @@ RestClient client = RestApplication.getRestClient();
 client.clearAccessToken();
 ```
 
+### Viewing SQL table
+
+You can use `chrome://inspect` to view the SQL tables once the app is running on your emulator.  See [this guide](https://guides.codepath.com/android/Debugging-with-Stetho) for more details.
+
 ### Troubleshooting
 
 * If you receive the following error `org.scribe.exceptions.OAuthException: Cannot send unauthenticated requests for TwitterApi client. Please attach an access token!` then check the following:
