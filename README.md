@@ -336,7 +336,7 @@ Tweet t = new Tweet(json);
 // t.body = "foo"
 ```
 
-To save, you will need to perform the database operation on a separate thread by creating a `Runnable` instance and adding the item:
+To save, you will need to perform the database operation on a separate thread by creating an `AsyncTask` and adding the item:
 
 ```java
 AsyncTask<Tweet, Void, Void> task = new AsyncTask<Tweet, Void, Void>() {
