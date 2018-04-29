@@ -1,9 +1,13 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import com.codepath.apps.restclienttemplate.models.SampleModel;
+import com.codepath.apps.restclienttemplate.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 import com.codepath.oauth.OAuthLoginActivity;
 
@@ -13,6 +17,20 @@ public class LoginActivity extends OAuthLoginActionBarActivity<RestClient> {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+
+		final SampleModel sampleModel = new SampleModel();
+		sampleModel.setId(123L);
+		sampleModel.setName("CodePath");
+
+		AsyncTask<SampleModel, Void, Void> task = new AsyncTask<SampleModel, Void, Void>() {
+			@Override
+			protected Void doInBackground(SampleModel... sampleModels) {
+				SampleModelDao sampleModelDao = ((RestApplication) getApplicationContext()).getMyDatabase().sampleModelDao();
+				sampleModelDao.insertModel(sampleModels);
+				return null;
+			};
+		};
+		task.execute(sampleModel);
 	}
 
 

@@ -1,7 +1,10 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
+
+import com.facebook.stetho.Stetho;
 
 /*
  * This is the Android application itself and is used to configure various settings
@@ -14,12 +17,25 @@ import android.content.Context;
  */
 public class RestApplication extends Application {
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-	}
+    MyDatabase myDatabase;
 
-	public static RestClient getRestClient(Context context) {
-		return (RestClient) RestClient.getInstance(RestClient.class, context);
-	}
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // when upgrading versions, kill the original tables by using
+		// fallbackToDestructiveMigration()
+        myDatabase = Room.databaseBuilder(this, MyDatabase.class,
+                MyDatabase.NAME).fallbackToDestructiveMigration().build();
+
+        // use chrome://inspect to inspect your SQL database
+        Stetho.initializeWithDefaults(this);
+    }
+
+    public static RestClient getRestClient(Context context) {
+        return (RestClient) RestClient.getInstance(RestClient.class, context);
+    }
+
+    public MyDatabase getMyDatabase() {
+        return myDatabase;
+    }
 }

@@ -41,4 +41,5 @@ dependencies {
     // Room for simple persistence with an ORM
     implementation "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    implementation 'com.facebook.stetho:stetho:1.5.0'
 }
