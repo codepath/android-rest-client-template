@@ -339,13 +339,15 @@ Tweet t = new Tweet(json);
 To save, you will need to perform the database operation on a separate thread by creating a `Runnable` instance and adding the item:
 
 ```java
-new Runnable() {
+AsyncTask<Tweet, Void, Void> task = new AsyncTask<Tweet, Void, Void>() {
     @Override
-	  public void run() {
-	    TwitterDao twitterDao = ((RestClientApp) getContext().getApplicationContext()).getMyDatabase().twitterDao();
-		  twitterDao.insertTweet(item);
-  	}
-});
+    protected Void doInBackground(Tweet... tweets) {
+      TwitterDao twitterDao = ((RestApplication) getApplicationContext()).getMyDatabase().twitterDao();
+      twitterDao.insertModel(tweets);
+      return null;
+    };
+  };
+  task.execute(tweets);
 ```
 
 That's all you need to get started. From here, hook up your activities and their behavior, adjust your models and add more REST endpoints.
