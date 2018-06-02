@@ -19,7 +19,6 @@ public class LoginActivity extends OAuthLoginActionBarActivity<RestClient> {
 		setContentView(R.layout.activity_login);
 
 		final SampleModel sampleModel = new SampleModel();
-		sampleModel.setId(123L);
 		sampleModel.setName("CodePath");
 
 		AsyncTask<SampleModel, Void, Void> task = new AsyncTask<SampleModel, Void, Void>() {

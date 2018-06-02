@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 public class SampleModel {
 
-	@PrimaryKey
+	@PrimaryKey(autoGenerate = true)
 	Long id;
 
 	// Define table fields
