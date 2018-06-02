@@ -9,6 +9,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 27
 
+        // Room schemas
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
