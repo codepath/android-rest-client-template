@@ -37,6 +37,7 @@ public class RestClient extends OAuthBaseClient {
 				REST_URL,
 				REST_CONSUMER_KEY,
 				REST_CONSUMER_SECRET,
+				null,  // OAuth2 scope, null for OAuth1
 				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
 						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
 	}
