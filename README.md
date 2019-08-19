@@ -419,7 +419,7 @@ public RestClient(Context context) {
 						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
 	}
 ```
-Google only accepts `http://` or `https://` domains, so your `REST_CALLBACK_URL_TEMPLATE will need to be adjusted:
+Google only accepts `http://` or `https://` domains, so your `REST_CALLBACK_URL_TEMPLATE` will need to be adjusted:
 
 ```java
 public static final String REST_CALLBACK_URL_TEMPLATE = "https://localhost";
