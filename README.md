@@ -49,7 +49,7 @@ Next, you want to define the endpoints which you want to retrieve data from or s
 
 ```java
 // RestClient.java
-public void getHomeTimeline(int page, AsyncHttpResponseHandler handler) {
+public void getHomeTimeline(int page, JsonHttpResponseHandler handler) {
   String apiUrl = getApiUrl("statuses/home_timeline.json");
   RequestParams params = new RequestParams();
   params.put("page", String.valueOf(page));
@@ -62,7 +62,7 @@ You can easily send post requests (or put or delete) using a similar approach:
 
 ```java
 // RestClient.java
-public void postTweet(String body, AsyncHttpResponseHandler handler) {
+public void postTweet(String body, JsonHttpResponseHandler handler) {
     String apiUrl = getApiUrl("statuses/update.json");
     RequestParams params = new RequestParams();
     params.put("status", body);
@@ -78,9 +78,8 @@ with a `JsonHttpResponseHandler` handler:
 RestClient client = RestApplication.getRestClient();
 client.getHomeTimeline(1, new JsonHttpResponseHandler() {
     @Override
-    public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-    // Response is automatically parsed into a JSONArray
-    // json.getJSONObject(0).getLong("id");
+    public void onSuccess(int statusCode, Headers headers, JSON json) {
+    // json.jsonArray.getJSONObject(0).getLong("id");
   }
 });
 ```
@@ -90,14 +89,14 @@ Based on the JSON response (array or object), you need to declare the expected t
 
 ```java
 RestClient client = RestApplication.getRestClient();
-client.getSomething(new AsyncHttpResponseHandler() {
+client.getSomething(new JsonHttpResponseHandler() {
     @Override
-    public void onSuccess(int statusCode, Header[] headers, String response) {
+    public void onSuccess(int statusCode, Headers headers, String response) {
         System.out.println(response);
     }
 });
 ```
-Check out [Android Async HTTP Docs](http://loopj.com/android-async-http/) for more request creation details.
+Check out [Android Async HTTP Docs](https://github.com/codepath/AsyncHttpClient) for more request creation details.
 
 ### 2. Define the Models
 
@@ -109,10 +108,11 @@ For example, if you were connecting to Twitter, you would want a Tweet model as 
 // models/Tweet.java
 package com.codepath.apps.restclienttemplate.models;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -217,10 +217,11 @@ Now you have a model that supports proper creation based on JSON. Create models 
 Next, you will need to define the queries by creating a Data Access Object (DAO) class.   Here is an example of declaring queries to return a Tweet by the post ID, retrieve the most recent tweets, and insert tweets.   
 
 ```java
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
+
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 
 import java.util.List;
 
@@ -316,8 +317,8 @@ In your new authenticated activity, you can access your client anywhere with:
 ```java
 RestClient client = RestApplication.getRestClient();
 client.getHomeTimeline(1, new JsonHttpResponseHandler() {
-  public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
-    Log.d("DEBUG", "timeline: " + jsonArray.toString());
+  public void onSuccess(int statusCode, Headers headers, JSON json) {
+    Log.d("DEBUG", "timeline: " + json.jsonArray.toString());
     // Load json array into model classes
   }
 });
@@ -377,6 +378,54 @@ client.clearAccessToken();
 ### Viewing SQL table
 
 You can use `chrome://inspect` to view the SQL tables once the app is running on your emulator.  See [this guide](https://guides.codepath.com/android/Debugging-with-Stetho) for more details.
+
+### Adding OAuth2 support
+
+Google uses OAuth2 APIs so make sure to use the `GoogleApi20` instance:
+
+```java
+public static final BaseApi REST_API_INSTANCE = GoogleApi20.instance();
+```
+
+Change `REST_URL` to use the Google API:
+
+```java
+public static final String REST_URL = "https://www.googleapis.com/calendar/v3"; // Change this, base API URL
+```
+
+The consumer and secret keys should be retrieved via [the credentials section](https://console.developers.google.com/apis/credentials) in the Google developer console  You will need to create an OAuth2 client ID and client secret: 
+
+```java
+public static final String REST_CONSUMER_KEY = "XXX-XXX.apps.googleusercontent.com";       // Change this
+public static final String REST_CONSUMER_SECRET = "XX-XXXXXXX"; // Change this
+```
+
+The OAuth2 scopes should be used according to the ones defined in [the OAuth2 scopes](https://developers.google.com/identity/protocols/googlescopes):
+
+```java
+public static final String OAUTH2_SCOPE = "https://www.googleapis.com/auth/calendar.readonly";
+```
+
+Make sure to pass this value into the scope parameter:
+
+```java
+public RestClient(Context context) {
+		super(context, REST_API_INSTANCE,
+				REST_URL,
+				REST_CONSUMER_KEY,
+				REST_CONSUMER_SECRET,
+				OAUTH2_SCOPE,  // OAuth2 scope, null for OAuth1
+				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
+						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
+	}
+```
+Google only accepts `http://` or `https://` domains, so your `REST_CALLBACK_URL_TEMPLATE will need to be adjusted:
+
+```java
+public static final String REST_CALLBACK_URL_TEMPLATE = "https://localhost";
+```
+
+Make sure to update the `cprest` and `intent_host` to match this callback URL . 
 
 ### Troubleshooting
 
