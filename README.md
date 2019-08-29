@@ -22,8 +22,8 @@ The following libraries are used to make this possible:
 
 ### 1. Configure the REST client
 
-Open `src/com.codepath.apps.restclienttemplate/RestClient.java`. Configure the `REST_API_INSTANCE`, `REST_URL`, `REST_CONSUMER_KEY`, `REST_CONSUMER_SECRET` based on the values needed to connect to your particular API. The `REST_URL` should be the base URL used for connecting to the API (i.e `https://api.twitter.com`). The `REST_API_INSTANCE` should be the class defining the service you wish to connect to. Check out the [full list of services](https://github.com/scribejava/scribejava/tree/master/scribejava-apis/src/main/java/com/github/scribejava/apis) you can select (i.e `FlickrApi.instance()`).
-
+Open `src/com.codepath.apps.restclienttemplate/RestClient.java`. Configure the `REST_API_INSTANCE` and`REST_URL`.
+ 
 For example if I wanted to connect to Twitter:
 
 ```java
@@ -31,11 +31,16 @@ For example if I wanted to connect to Twitter:
 public class RestClient extends OAuthBaseClient {
     public static final BaseApi REST_API_INSTANCE = TwitterApi.instance();
     public static final String REST_URL = "https://api.twitter.com/1.1";
-    public static final String REST_CONSUMER_KEY = "57fdgdfh345195e071f9a761d763ca0";
-    public static final String REST_CONSUMER_SECRET = "d657sdsg34435435";
+    public static final String REST_CONSUMER_KEY = BuildConfig.CONSUMER_KEY;       // Change this inside apikey.properties
+    public static final String REST_CONSUMER_SECRET = BuildConfig.CONSUMER_SECRET; // Change this inside apikey.properties
     // ...constructor and endpoints
 }
 ```
+
+Rename the `apikey.properties.example` file to `apikey.properties`.   Replace the `CONSUMER_KEY` and `CONSUMER_SECRET` to the values specified in the Twitter console:
+
+CONSUMER_KEY="adsflfajsdlfdsajlafdsjl"
+CONSUMER_SECRET="afdsljkasdflkjsd"
 
 Next, change the `intent_scheme` and `intent_host` in `strings.xml` to a unique name that is special for this application.
 This is used for the OAuth authentication flow for launching the app through web pages through an [Android intent](https://developer.chrome.com/multidevice/android/intents).
@@ -393,11 +398,13 @@ Change `REST_URL` to use the Google API:
 public static final String REST_URL = "https://www.googleapis.com/calendar/v3"; // Change this, base API URL
 ```
 
-The consumer and secret keys should be retrieved via [the credentials section](https://console.developers.google.com/apis/credentials) in the Google developer console  You will need to create an OAuth2 client ID and client secret: 
+The consumer and secret keys should be retrieved via [the credentials section](https://console.developers.google.com/apis/credentials) in the Google developer console  You will need to create an OAuth2 client ID and client secret.
+
+Create a file called `apikey.properties`: 
 
 ```java
-public static final String REST_CONSUMER_KEY = "XXX-XXX.apps.googleusercontent.com";       // Change this
-public static final String REST_CONSUMER_SECRET = "XX-XXXXXXX"; // Change this
+REST_CONSUMER_KEY="XXX-XXX.apps.googleusercontent.com"
+REST_CONSUMER_SECRET="XX-XXXXXXX"
 ```
 
 The OAuth2 scopes should be used according to the ones defined in [the OAuth2 scopes](https://developers.google.com/identity/protocols/googlescopes):
