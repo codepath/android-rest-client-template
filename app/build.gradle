@@ -40,11 +40,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     implementation 'com.codepath.libraries:android-oauth-handler:2.2.0'
     implementation 'commons-codec:commons-codec:1.10'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     // Glide for remote image loading
-    implementation 'com.github.bumptech.glide:glide:4.10.0-SNAPSHOT'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
     // Room for simple persistence with an ORM
-    def room_version = "2.1.0"
+    def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.facebook.stetho:stetho:1.5.1'
